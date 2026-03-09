@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --blue:         #4A90D9;
+  --blue-light:   #e8f2fc;
+  --blue-mid:     #bcd9f5;
+  --blue-dark:    #2d6fad;
+  --text:         #1a1a2e;
+  --text-muted:   #6b7280;
+  --text-light:   #9ca3af;
+  --border:       #e5e7eb;
+  --border-focus: #4A90D9;
+  --bg:           #f9fafb;
+  --white:        #ffffff;
+  --error:        #ef4444;
+  --success:      #10b981;
+  --shadow-sm:    0 2px 8px rgba(74,144,217,0.08);
+  --shadow:       0 4px 24px rgba(74,144,217,0.10);
+  --shadow-lg:    0 8px 40px rgba(74,144,217,0.16);
+  --radius-sm:    8px;
+  --radius:       12px;
+  --radius-lg:    20px;
+  --transition:   all 0.22s ease;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Page enter animation */
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-enter {
+  animation: pageEnter 0.38s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}

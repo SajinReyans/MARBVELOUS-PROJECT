@@ -1,0 +1,43 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Ignored default folder with query files
+/queries/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Environment Variables
+backend/.env
+frontend/.env
+
+# Uploaded KYC Documents
+backend/uploads/
+
+# Node Modules
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Build Output
+frontend/dist/
+frontend/build/
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor Files
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+nodemon-debug.log*
+
+# Temp Files
+*.tmp
+*.temp
