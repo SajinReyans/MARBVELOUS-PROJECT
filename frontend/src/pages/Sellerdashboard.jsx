@@ -10,6 +10,7 @@ import { useNavigate }         from 'react-router-dom'
 import Logo                    from '../components/Logo'
 import { getCurrentUser, logout } from '../services/authService'
 import { getMyStore, getMyProducts, getFileUrl } from '../services/sellerService'
+import { getSellerOrders, getSellerRevenue } from '../services/buyerService'
 
 export default function SellerDashboard() {
     const navigate = useNavigate()
@@ -17,13 +18,19 @@ export default function SellerDashboard() {
 
     const [store,    setStore]    = useState(null)
     const [products, setProducts] = useState([])
+    const [orders,   setOrders]   = useState([])
+    const [revenue,  setRevenue]  = useState(0)
     const [loading,  setLoading]  = useState(true)
 
     useEffect(() => {
         async function load() {
-            const [storeRes, prodRes] = await Promise.all([getMyStore(), getMyProducts()])
+            const [storeRes, prodRes, ordRes, revRes] = await Promise.all([
+                getMyStore(), getMyProducts(), getSellerOrders(), getSellerRevenue()
+            ])
             if (storeRes.success)  setStore(storeRes.store)
             if (prodRes.success)   setProducts(prodRes.products)
+            if (ordRes.success)    setOrders(ordRes.orders)
+            if (revRes.success)    setRevenue(revRes.revenue || 0)
             setLoading(false)
         }
         load()
@@ -119,10 +126,10 @@ export default function SellerDashboard() {
                 {/* ── Stats ── */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 14, marginBottom: 28 }}>
                     {[
-                        { icon: '📦', label: 'Products',  value: products.length, color: '#7c3aed' },
-                        { icon: '🛍️', label: 'Orders',    value: '0',             color: '#2563eb' },
-                        { icon: '💰', label: 'Revenue',   value: '₹0',            color: '#10b981' },
-                        { icon: '⭐', label: 'Rating',    value: '—',             color: '#f59e0b' },
+                        { icon: '📦', label: 'Products',  value: products.length,                                    color: '#7c3aed' },
+                        { icon: '🛍️', label: 'Orders',    value: orders.length,                                      color: '#2563eb' },
+                        { icon: '💰', label: 'Revenue',   value: `₹${revenue}`,                                     color: '#10b981' },
+                        { icon: '🆕', label: 'New Orders', value: orders.filter(o => o.status === 'placed').length,  color: '#f59e0b' },
                     ].map(s => (
                         <div key={s.label} style={{
                             background: '#ffffff', border: '1.5px solid var(--border)',
@@ -136,10 +143,11 @@ export default function SellerDashboard() {
                 </div>
 
                 {/* ── Quick Actions ── */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 28 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14, marginBottom: 28 }}>
                     {[
                         { icon: '➕', title: 'Add New Product',  desc: 'List a new product in your store',      path: '/seller/products', color: '#f5f3ff', border: '#ddd6fe' },
                         { icon: '📦', title: 'Manage Products',  desc: 'Edit, update or delete your listings',  path: '/seller/products', color: '#eff6ff', border: '#bfdbfe' },
+                        { icon: '🛍️', title: 'View Orders',      desc: 'See and manage customer orders',        path: '/seller/orders',   color: '#fef9c3', border: '#fde68a' },
                         { icon: '🏪', title: 'Edit Store',       desc: 'Update your store name, logo and info', path: '/seller/store',    color: '#fdf4ff', border: '#e9d5ff' },
                         { icon: '👤', title: 'Edit Profile',     desc: 'Update contact details and address',    path: '/seller/profile',  color: '#f0fdf4', border: '#bbf7d0' },
                     ].map(action => (
