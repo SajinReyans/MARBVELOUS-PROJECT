@@ -1,5 +1,6 @@
 // pages/BuyerSignupPage.jsx
 // 4-step buyer signup form — connected to backend API.
+// On success navigates to /success which handles role-based redirect.
 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -98,7 +99,6 @@ export default function BuyerSignupPage() {
                     </p>
                 </div>
 
-                {/* Error banner */}
                 {error && (
                     <div style={{
                         padding: '10px 14px', background: '#fef2f2',
@@ -109,16 +109,15 @@ export default function BuyerSignupPage() {
                     </div>
                 )}
 
-                {/* ── STEP 0: Account ── */}
                 {step === 0 && (
                     <>
                         {sectionTitle('Account Details')}
                         <div style={grid}>
-                            <FormInput label="Full Name"         fullWidth placeholder="Enter your full name"    value={form.fullName}        onChange={set('fullName')} />
-                            <FormInput label="Mobile Number"     type="tel"      placeholder="+91 XXXXX XXXXX"  value={form.mobile}          onChange={set('mobile')} />
-                            <FormInput label="Email Address"     type="email"    placeholder="you@example.com"  value={form.email}           onChange={set('email')} />
-                            <FormInput label="Password"          type="password" placeholder="Min 6 characters" value={form.password}        onChange={set('password')} />
-                            <FormInput label="Confirm Password"  type="password" placeholder="Repeat password"  value={form.confirmPassword} onChange={set('confirmPassword')} />
+                            <FormInput label="Full Name"        fullWidth placeholder="Enter your full name"    value={form.fullName}        onChange={set('fullName')} />
+                            <FormInput label="Mobile Number"    type="tel"      placeholder="+91 XXXXX XXXXX"  value={form.mobile}          onChange={set('mobile')} />
+                            <FormInput label="Email Address"    type="email"    placeholder="you@example.com"  value={form.email}           onChange={set('email')} />
+                            <FormInput label="Password"         type="password" placeholder="Min 6 characters" value={form.password}        onChange={set('password')} />
+                            <FormInput label="Confirm Password" type="password" placeholder="Repeat password"  value={form.confirmPassword} onChange={set('confirmPassword')} />
                             <OtpInput
                                 value={form.otp}
                                 onChange={set('otp')}
@@ -131,7 +130,6 @@ export default function BuyerSignupPage() {
                     </>
                 )}
 
-                {/* ── STEP 1: Profile ── */}
                 {step === 1 && (
                     <>
                         {sectionTitle('Profile Details', true)}
@@ -144,7 +142,6 @@ export default function BuyerSignupPage() {
                     </>
                 )}
 
-                {/* ── STEP 2: Address ── */}
                 {step === 2 && (
                     <>
                         {sectionTitle('Address Details')}
@@ -162,7 +159,6 @@ export default function BuyerSignupPage() {
                     </>
                 )}
 
-                {/* ── STEP 3: Payment ── */}
                 {step === 3 && (
                     <>
                         {sectionTitle('Payment Details', true)}
